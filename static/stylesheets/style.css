@@ -541,3 +541,12 @@ p.card-bio {
 .message-404 .form-inline input {
   flex: 1;
 }
+
+/*---------------------------------- Edits */
+
+#profile-banner {
+  height: 360px;
+  margin-top: -1px;
+  background-size: contain;
+  background-position: center;
+}
