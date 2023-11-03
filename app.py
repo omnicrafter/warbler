@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
-from models import db, connect_db, User, Message
+from models import db, connect_db, User, Message, Follows
 import pdb
 
 CURR_USER_KEY = "curr_user"
@@ -317,9 +317,16 @@ def homepage():
     - logged in: 100 most recent messages of followed_users
     """
 
+    messages = []
+
     if g.user:
+        follows = Follows.query.filter_by(user_following_id=g.user.id).all()
+        followed_user_ids = [
+            follow.user_being_followed_id for follow in follows]
+
         messages = (Message
                     .query
+                    .filter(Message.user_id.in_(followed_user_ids))
                     .order_by(Message.timestamp.desc())
                     .limit(100)
                     .all())
