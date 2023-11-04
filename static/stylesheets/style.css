@@ -547,6 +547,6 @@ p.card-bio {
 #profile-banner {
   height: 360px;
   margin-top: -1px;
-  background-size: contain;
+  background-size: 100% auto;
   background-position: center;
 }
